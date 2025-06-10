@@ -23,7 +23,7 @@ jobs:
           node-version: '22' # Specify the Node.js version
 
       - name: Install dependencies # Step 3: Install project dependencies (Cypress, http-server, etc.)
-        run: npm ci # 'npm ci' is preferred over 'npm install' in CI environments for faster and more reliable installs
+        run: npm install # 'npm ci' is preferred over 'npm install' in CI environments for faster and more reliable installs
 
       - name: Start local web server # Step 4: Host your demo page in the background
         run: npm run start:server & # 'npm run start:server' runs our script, '&' runs it in the background
