@@ -1,0 +1,32 @@
+[
+    {
+        "userId": 1,
+        "id": 101,
+        "title": "Mocked Post Title One",
+        "body": "This is the body of the first mocked post, for testing."
+    },
+    {
+        "userId": 1,
+        "id": 102,
+        "title": "Mocked Post Title Two",
+        "body": "Another mocked post body."
+    },
+    {
+        "userId": 2,
+        "id": 103,
+        "title": "Mocked Post Title Three",
+        "body": "The third mocked post."
+    },
+    {
+        "userId": 2,
+        "id": 104,
+        "title": "Mocked Post Title Four",
+        "body": "Fourth mocked post."
+    },
+    {
+        "userId": 3,
+        "id": 105,
+        "title": "Mocked Post Title Five",
+        "body": "Fifth and final mocked post."
+    }
+]
