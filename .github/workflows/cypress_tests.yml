@@ -1,0 +1,42 @@
+# .github/workflows/main.yml
+name: Cypress Network Interception CI
+
+on:
+  push:
+    branches:
+      - main # Trigger on push to the 'main' branch
+  pull_request:
+    branches:
+      - main # Trigger on pull requests targeting the 'main' branch
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest # Run on the latest Ubuntu environment provided by GitHub Actions
+
+    steps:
+      - name: Checkout code # Step 1: Get the source code from your repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js # Step 2: Install Node.js (version 20 recommended for Cypress)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Specify the Node.js version
+
+      - name: Install dependencies # Step 3: Install project dependencies (Cypress, http-server, etc.)
+        run: npm ci # 'npm ci' is preferred over 'npm install' in CI environments for faster and more reliable installs
+
+      - name: Start local web server # Step 4: Host your demo page in the background
+        run: npm run start:server & # 'npm run start:server' runs our script, '&' runs it in the background
+        # It's important to run the server in the background so the next step can execute.
+        # The server will be accessible at http://localhost:3000 inside the CI environment.
+
+      - name: Wait for server to start # Step 5: Give the server a moment to fully boot up
+        run: sleep 5 # A short delay; for more complex apps, consider 'wait-on' or a custom readiness check.
+
+      - name: Run Cypress tests # Step 6: Execute the Cypress tests
+        run: npm run test:cypress # 'npm run test:cypress' executes 'cypress run' as defined in package.json
+        # By default, 'cypress run' will run tests headlessly (without a visible browser UI),
+        # which is ideal for CI environments as it's faster and doesn't require a GUI.
+        # If you wanted to run with a headed browser (e.g., for debugging CI failures visually),
+        # you could modify the script in package.json or directly here to:
+        # 'npx cypress run --browser chrome --headed' (ensure Chrome is available in the runner)
